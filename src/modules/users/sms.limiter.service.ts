@@ -26,23 +26,29 @@ class SmsLimiterService {
           HttpStatus.TOO_MANY_REQUESTS,
         );
       }
-    } catch (error) {}
+    } catch (error) {
+      throw error;
+    }
   }
   async trackSmsRequest(phone_number: string) {
-    const keyCooldown = `sms-cooldown-seconds:${phone_number}`;
-    const cooldown = await this.redisService.setIncrKey(keyCooldown);
-    if (cooldown === 1) {
-      this.redisService.setExpireKey(keyCooldown, 60);
-    }
-    const keyHourly = `sms-limit-hourly:${phone_number}`;
-    const hourly = await this.redisService.setIncrKey(keyHourly);
-    if (hourly === 1) {
-      this.redisService.setExpireKey(keyHourly, 3600);
-    }
-    const keyDaily = `sms-limit-daily:${phone_number}`;
-    const daily = await this.redisService.setIncrKey(keyDaily);
-    if (daily === 1) {
-      this.redisService.setExpireKey(keyDaily, 86400);
+    try {
+      const keyCooldown = `sms-cooldown-seconds:${phone_number}`;
+      const cooldown = await this.redisService.setIncrKey(keyCooldown);
+      if (cooldown === 1) {
+        this.redisService.setExpireKey(keyCooldown, 60);
+      }
+      const keyHourly = `sms-limit-hourly:${phone_number}`;
+      const hourly = await this.redisService.setIncrKey(keyHourly);
+      if (hourly === 1) {
+        this.redisService.setExpireKey(keyHourly, 3600);
+      }
+      const keyDaily = `sms-limit-daily:${phone_number}`;
+      const daily = await this.redisService.setIncrKey(keyDaily);
+      if (daily === 1) {
+        this.redisService.setExpireKey(keyDaily, 86400);
+      }
+    } catch (error) {
+      throw error;
     }
   }
 }

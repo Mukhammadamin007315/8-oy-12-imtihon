@@ -295,25 +295,25 @@ Bu o'quv platformasi o'qituvchilar va o'quvchilar uchun kurslarni boshqarish, va
 
 ## Texnik talablar va ko'rsatmalar
 
-1. **Entity (Model) larni yaratish**:✔️
+1. **Entity (Model) larni yaratish**: ✔️
 
-   - User entity (id, fullName, email, password, phoneNumber, role, isEmailVerified, isPhoneVerified, ...)✔️
-   - Course entity (id, title, description, teacherId, ...)✔️
-   - Assignment entity (id, title, description, dueDate, maxScore, courseId, ...)✔️
-   - Submission entity (id, description, fileUrl, status, score, assignmentId, studentId, ...)✔️
+   - User entity (id, fullName, email, password, phoneNumber, role, isEmailVerified, isPhoneVerified, ...) ✔️
+   - Course entity (id, title, description, teacherId, ...) ✔️
+   - Assignment entity (id, title, description, dueDate, maxScore, courseId, ...) ✔️
+   - Submission entity (id, description, fileUrl, status, score, assignmentId, studentId, ...) ✔️
    - Va h.k.
 
 2. **DTO (Data Transfer Object) larni yaratish**: ✔️
 
-   - Har bir endpoint uchun Request DTO
-   - Har bir endpoint uchun Response DTO
-   - Validatsiya uchun class-validator dekoratorlaridan foydalanish
+   - Har bir endpoint uchun Request DTO ✔️
+   - Har bir endpoint uchun Response DTO ✔️
+   - Validatsiya uchun class-validator dekoratorlaridan foydalanish ✔️
 
 3. **Guards yaratish**:
 
    - AuthGuard (JWT token tekshirish) ✔️
    - RoleGuard (foydalanuvchi rolini tekshirish) ✔️
-   - CourseOwnerGuard (kurs egasi tekshirish)
+   - CourseOwnerGuard (kurs egasi tekshirish) ✔️
    - CourseEnrolledGuard (kursga a'zolikni tekshirish)
 
 4. **SMS va Email verifikatsiya**: ✔️

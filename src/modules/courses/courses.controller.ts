@@ -23,7 +23,11 @@ export class CoursesController {
   @Post('create')
   @UseGuards(TeacherGuard, AuthGuard)
   async create(@Body() createCourseDto: CreateCourseDto) {
-    return await this.coursesService.create(createCourseDto);
+    try {
+      return await this.coursesService.create(createCourseDto);
+    } catch (error) {
+      throw error;
+    }
   }
 
   @Get()
@@ -31,7 +35,11 @@ export class CoursesController {
   async findAll(
     @Query() query: { page?: number; limit?: number; search?: string },
   ) {
-    return await this.coursesService.findAll(query);
+    try {
+      return await this.coursesService.findAll(query);
+    } catch (error) {
+      throw error;
+    }
   }
 
   @Get(':id')
@@ -39,7 +47,11 @@ export class CoursesController {
     @Param('id') id: string,
     @Headers('authorization') body: string,
   ) {
-    const token = body.split(' ')[1];
-    return await this.coursesService.findOne(id, token);
+    try {
+      const token = body.split(' ')[1];
+      return await this.coursesService.findOne(id, token);
+    } catch (error) {
+      throw error;
+    }
   }
 }

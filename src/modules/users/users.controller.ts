@@ -2,7 +2,6 @@ import {
   Body,
   Controller,
   Get,
-  Headers,
   HttpCode,
   Patch,
   Post,
@@ -12,13 +11,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
+import AuthGuard from 'src/common/guards/auth.guard';
+import { IRequest } from '../courses/courses.controller';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
-import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { throwError } from 'rxjs';
-import { IRequest } from '../courses/courses.controller';
-import AuthGuard from 'src/common/guards/auth.guard';
+import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
@@ -26,11 +24,15 @@ export class UsersController {
 
   @Post('register')
   async register(@Body() createUserDto: CreateUserDto) {
-    await this.usersService.register(createUserDto);
-    return {
-      message:
-        "Ro'yxatdan o'tish muvaffaqiyatli amalga oshirildi. Iltimos, telefoningizga yuborilgan kodni tasdiqlang.",
-    };
+    try {
+      await this.usersService.register(createUserDto);
+      return {
+        message:
+          "Ro'yxatdan o'tish muvaffaqiyatli amalga oshirildi. Iltimos, telefoningizga yuborilgan kodni tasdiqlang.",
+      };
+    } catch (error) {
+      throw error;
+    }
   }
   @Post('verify-sms')
   @HttpCode(200)
@@ -38,39 +40,54 @@ export class UsersController {
     @Body() body: { phone_number: string; code: string },
     @Res({ passthrough: true }) res: Response,
   ) {
-    const { token } = await this.usersService.verifyCode(
-      body.phone_number,
-      body.code,
-    );
-    res.cookie('token', token, {
-      httpOnly: true,
-      secure: true,
-    });
-    return {
-      message:
-        'Telefon raqam tasdiqlandi. Endi email manzilingizni tasdiqlashingiz kerak.',
-    };
+    try {
+      const { token } = await this.usersService.verifyCode(
+        body.phone_number,
+        body.code,
+      );
+      res.cookie('token', token, {
+        httpOnly: true,
+        secure: true,
+      });
+      return {
+        message:
+          'Telefon raqam tasdiqlandi. Endi email manzilingizni tasdiqlashingiz kerak.',
+      };
+    } catch (error) {
+      throw error;
+    }
   }
   @Get('verify/email')
   async verifyEmail(@Query('token') token: string) {
-    return await this.usersService.verifyEmail(token);
+    try {
+      return await this.usersService.verifyEmail(token);
+    } catch (error) {
+      throw error;
+    }
   }
-
   @Post('login')
   @HttpCode(200)
   async loginUser(@Body() loginUserDto: LoginUserDto) {
-    const { data } = await this.usersService.loginUser(
-      loginUserDto.email,
-      loginUserDto.password,
-    );
-    return { data };
+    try {
+      const { data } = await this.usersService.loginUser(
+        loginUserDto.email,
+        loginUserDto.password,
+      );
+      return { data };
+    } catch (error) {
+      throw error;
+    }
   }
   @Get('profile')
   @UseGuards(AuthGuard)
   async getProfile(@Req() req: IRequest) {
-    const user_id = req.userId;
-    const data = await this.usersService.getProfile(user_id);
-    return data;
+    try {
+      const user_id = req.userId;
+      const data = await this.usersService.getProfile(user_id);
+      return data;
+    } catch (error) {
+      throw error;
+    }
   }
   @Patch('profile')
   @UseGuards(AuthGuard)
@@ -78,8 +95,15 @@ export class UsersController {
     @Body() updateUserDto: UpdateUserDto,
     @Req() req: IRequest,
   ) {
-    const user_id = req.userId;
-    const data = await this.usersService.updateProfile(updateUserDto, user_id);
-    return data;
+    try {
+      const user_id = req.userId;
+      const data = await this.usersService.updateProfile(
+        updateUserDto,
+        user_id,
+      );
+      return data;
+    } catch (error) {
+      throw error;
+    }
   }
 }

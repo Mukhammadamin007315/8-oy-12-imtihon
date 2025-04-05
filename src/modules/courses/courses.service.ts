@@ -11,8 +11,6 @@ import { ILike, Repository } from 'typeorm';
 import { User } from '../users/entities/user.entity';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { Course } from './entities/course.entity';
-import { log } from 'util';
-
 @Injectable()
 export class CoursesService {
   constructor(
@@ -37,7 +35,7 @@ export class CoursesService {
     const page = query.page || 1;
     const limit = query.limit || 10;
     const search = query.search || '';
-    const courses = await this.courseRepository.findAndCount({
+    const [courses, total] = await this.courseRepository.findAndCount({
       where: search
         ? [
             { title: ILike(`%${search}%`) },
@@ -48,13 +46,14 @@ export class CoursesService {
       skip: (page - 1) * limit,
       order: { createdAt: 'DESC' },
     });
-    console.log(courses[0]);
-
-    // const findUser = await this.userRepository.findOne(courses[0]);
     return {
       message: 'course royxati',
       data: {
         items: courses,
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
       },
     };
   }
@@ -72,9 +71,5 @@ export class CoursesService {
     }
     console.log(course);
     return course;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} course`;
   }
 }
