@@ -1,0 +1,295 @@
+{
+	"info": {
+		"_postman_id": "13e0df13-794c-4e25-b07f-b923c524334c",
+		"name": "8-month 12-lesson",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39881499"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fullName\": \"Ergashev Muhammadamin Raimjon o'g'li\",\r\n    \"email\": \"muhammadaminergashev09@gmail.com\",\r\n    \"password\": \"q8eyeq82e3S++\",\r\n    \"phoneNumber\": \"+998993031637\",\r\n    \"role\": \"teacher\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verification_phone_number",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"phone_number\": \"+998993031637\",\r\n    \"code\": \"214432\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/verify-sms",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"verify-sms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"muhammadaminergashev09@gmail.com\",\r\n    \"password\": \"q8eyeq82e3S++\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZGQxMTdkODktYzZjNi00ZjgzLTkxYTYtM2RmNDQzZTg4NGNlIiwiaWF0IjoxNzQzNzAxNDIxLCJleHAiOjE3NDM3MDMyMjF9.AvdlI3RRbRCcuC0eFAa12XR9TZB3i3rzX6HHTy-JVHQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/users/profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update_profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiODE0OWVkODctOGMwZi00MTliLTkwOTUtZTgzMTUyNmNjNTVkIiwiaWF0IjoxNzQzNzU4Njg4LCJleHAiOjE3NDM3NjA0ODh9.VHCN8hGZahYK6f3QY8_YRdL8_WgCU2E7uy8C_skED5A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"phoneNumber\": \"+998993031637\",\r\n    \"email\": \"muhammadaminergashev09@gmail.com\",\r\n    \"fullName\": \"Ergashev Muhammadamin Raimjon o'g'li\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_courses",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiODE0OWVkODctOGMwZi00MTliLTkwOTUtZTgzMTUyNmNjNTVkIiwiaWF0IjoxNzQzNzYwODIwLCJleHAiOjE3NDM3NjI2MjB9.3xAH4SqQDcW_-RaIoJSQN5fnZu9-goXouyQnFVGiNoY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Python\",\r\n    \"description\": \"python bilan bog'liq ishlar\",\r\n    \"teacherId\": \"8149ed87-8c0f-419b-9095-e831526cc55d\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/courses/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"courses",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_courses",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/courses",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"courses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_one_courses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/courses/9aa368f9-d6df-44e7-81a3-cf850959b9ad",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"courses",
+						"9aa368f9-d6df-44e7-81a3-cf850959b9ad"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "assignment_course",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"takrorlash\",\r\n    \"description\": \"uyga vazifa takrorlash\",\r\n    \"dueDate\": \"2025-04-05T15:00:50.674Z\",\r\n    \"maxScore\": 100\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/courses/ 9aa368f9-d6df-44e7-81a3-cf850959b9ad/assignments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"courses",
+						" 9aa368f9-d6df-44e7-81a3-cf850959b9ad",
+						"assignments"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
